@@ -33,6 +33,7 @@ public:
   void empty();
 
   // Sorters
+  void swap(Node* A, Node* B);
   Node* findName(std::string Name);
   bool sorted();
   void order();

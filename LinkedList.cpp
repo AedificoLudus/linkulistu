@@ -106,6 +106,7 @@
       curr->getNext()->setPrev(curr->getPrev());
     }
     curr->~Node();
+    ncount = ncount - 1;
   }
 
   void LinkedList::remove(std::string Name)
@@ -129,6 +130,61 @@
 
 
   // Sorters
+  void LinkedList::swap(Node* A, Node* B)
+  {
+    //set a handful of temporary pointers
+    Node* Am = A->getPrev();
+    Node* Ap = A->getNext();
+    Node* Bm = B->getPrev();
+    Node* Bp = B->getNext();
+
+    //swap the outgoing pointers of A and B
+    A->setPrev(Bm);
+    A->setNext(Bp);
+    B->setPrev(Am);
+    B->setNext(Ap);
+
+    //check if the ingoing pointers are valid
+    //if so:
+    //swap them
+    if(Am != nullptr)
+    {
+      Am->setNext(B);
+    }
+    if(Ap != nullptr)
+    {
+      Ap->setPrev(B);
+    }
+    if(Bm != nullptr)
+    {
+      Bm->setNext(A);
+    }
+    if(Bp != nullptr)
+    {
+      Bp->setPrev(A);
+    }
+
+    //check if either node was the head or getTail
+    //if so, set the new node to be head or tail
+    if(this->getHead() == A)
+    {
+      this->head = B;
+    }
+    else if(this->getHead() == B)
+    {
+      this->head = A;
+    }
+    if(this->getTail() == A)
+    {
+      this->tail = B;
+    }
+    else if(this->getTail() == B)
+    {
+      this->tail = A;
+    }
+
+  }
+
   Node* LinkedList::findName(std::string Name)
   {
     Node* curr = head;
@@ -153,6 +209,7 @@
           return false;
         }
       }
+      std::cout << "sorted looping" << std::endl;
       curr = curr->getNext();
     }
     return true;
@@ -167,17 +224,7 @@
       {
         if(curr->getStudent()->get_name().compare(curr->getNext()->getStudent()->get_name()))
         {
-          std::cout << "swapping" <<std::endl;
-          Node* before = curr->getPrev();
-          Node* after = curr->getNext();
-          if(before != NULL)
-          {
-            before->setNext(after);
-          }
-          curr->setNext(after->getNext());
-          curr->setPrev(after);
-          after->setNext(curr);
-          after->setPrev(before);
+          swap(curr, curr->getNext());
         }
         else
         {
