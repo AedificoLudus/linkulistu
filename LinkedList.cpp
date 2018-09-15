@@ -38,40 +38,53 @@
   {
     head = firstNode;
     tail = firstNode;
+    //this doesn't increment the node count because it's only ever called from addToHead or addToTail
   }
 
   void LinkedList::addToHead(Student nstudent)
   {
+    //make the new Node
     Node* newNode = new Node(nstudent);
+    //if the list is empty
     if(head == nullptr)
     {
       addFirst(newNode);
     } else {
+      //add the node before the head
       head->setPrev(newNode);
       newNode->setNext(head);
+      //make the node the new head
       head = newNode;
     }
+    //increment the node count
     ncount += 1;
   }
 
   void LinkedList::addToTail(Student nstudent)
   {
+    //make the new Node
     Node* newNode = new Node(nstudent);
+    //if the list is empty
     if (tail == nullptr) {
       addFirst(newNode);
     } else {
+      //add the node after the tail
       newNode->setPrev(tail);
       tail->setNext(newNode);
+      //make the node the new tail
       tail = newNode;
     }
+    //increment the node count
     ncount += 1;
   }
 
   void LinkedList::concatenate(LinkedList second)
   {
+    //set curr to the head of the second list
     Node* curr = second.getHead();
     while(curr != nullptr)
     {
+      //add a node to the tail of the first list copied from the data of the second
       this->addToTail(*(curr->getStudent()));
       curr = curr->getNext();
     }
@@ -86,35 +99,47 @@
     if(curr == head)
     {
       head = curr->getNext();
+      //if the node is the only node
       if(curr == tail)
       {
+        //empty the list
+        head = nullptr;
         tail = nullptr;
       }
       else
       {
+        //remove the Prev link from the next node
         curr->getNext()->setPrev(nullptr);
       }
     }
     else if(curr == tail)
     {
+      //set the tail to the node before
       tail = curr->getPrev();
       curr->getPrev()->setNext(nullptr);
     }
     else
     {
+      //set the incoming pointers to each other
       curr->getPrev()->setNext(curr->getNext());
       curr->getNext()->setPrev(curr->getPrev());
     }
+    //delete the node
     curr->~Node();
+    //decrement the node count
     ncount = ncount - 1;
   }
 
   void LinkedList::remove(std::string Name)
   {
+    //find the first instance of that name from the list
     Node* curr = findName(Name);
+    //while findName is still finding instances of that name
     while(curr != nullptr)
     {
+      //remove the offending node
       deleteNode(curr);
+      //check there aren't still more instances
       curr = findName(Name);
     }
   }
@@ -123,7 +148,9 @@
   {
     if(head != nullptr)
     {
-      deleteNode(head);
+      //delete the head
+      deleteNode(this->head);
+      //recursively delete the list
       empty();
     }
   }
@@ -199,19 +226,29 @@
 
   bool LinkedList::sorted()
   {
+    //set the head of the list to current
     Node* curr = this->getHead();
-    while(curr != nullptr)
+    //while the current node is a valid node
+    while(curr != this->getTail())
     {
+      //if the current node is a valid node
       if(curr->getNext() != nullptr)
       {
-        if((curr->getStudent()->get_name()).compare(curr->getNext()->getStudent()->get_name()) > 0)
+        std::string tempStringCurr = curr->getStudent()->get_name();
+        std::string tempStringNext = curr->getNext()->getStudent()->get_name();
+        //if the current name should be after the next name
+        if(tempStringCurr.compare(tempStringNext) > 0)
         {
           return false;
         }
       }
-      std::cout << "sorted looping" << std::endl;
+      //increment current
       curr = curr->getNext();
+      std::cout << "returning true" << std::endl;
+      return true;
     }
+    //we've now reached the end of the list without returning false
+    //therefore the list is sorted
     return true;
   }
 
@@ -220,19 +257,26 @@
     Node* curr = this->getHead();
     while(sorted() == false)
     {
+      //if we're not at the end of the list
       if(curr->getNext() != nullptr)
       {
-        if(curr->getStudent()->get_name().compare(curr->getNext()->getStudent()->get_name()))
+        std::string tempStringCurr = curr->getStudent()->get_name();
+        std::string tempStringNext = curr->getNext()->getStudent()->get_name();
+        //if the next name is meant to be before the current
+        if(tempStringCurr.compare(tempStringNext) > 0)
         {
+          //swap those two nodes
           swap(curr, curr->getNext());
         }
         else
         {
+          //otherwise, increment the current node
           curr = curr->getNext();
         }
       }
       else
       {
+        //when ew reach the end of the list, move back to the start
         curr = this->getHead();
       }
     }
@@ -243,16 +287,19 @@
   {
       if (curr != nullptr)
       {
+        //recursively add the students score
         return curr->getStudent()->get_score() + sumList(curr->getNext());
       }
       else
       {
+        //when we reach the end of the list, return 0
         return 0;
       }
   }
 
   double LinkedList::calcAverage()
   {
+    //divide the sum of the list by the number of nodes
     return (sumList(head))/ncount;
   }
 
