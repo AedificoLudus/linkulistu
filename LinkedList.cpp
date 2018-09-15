@@ -35,10 +35,9 @@
     tail = firstNode;
   }
 
-  void LinkedList::addToHead(Student student)
+  void LinkedList::addToHead(Student nstudent)
   {
-    Node* newNode = (Node*) malloc(sizeof(Node));
-    *newNode = Node(student);
+    Node* newNode = new Node(nstudent);
     if(head == nullptr)
     {
       addFirst(newNode);
@@ -50,10 +49,9 @@
     ncount += 1;
   }
 
-  void LinkedList::addToTail(Student student)
+  void LinkedList::addToTail(Student nstudent)
   {
-    Node* newNode = (Node*) malloc(sizeof(Node));
-    *newNode = Node(student);
+    Node* newNode = new Node(nstudent);
     if (tail == nullptr) {
       addFirst(newNode);
     } else {
@@ -117,7 +115,6 @@
 
   void LinkedList::remove(std::string Name)
   {
-    std::cout << "Removing student" << std::endl;
     Node* curr = findName(Name);
     deleteNode(curr);
   }
