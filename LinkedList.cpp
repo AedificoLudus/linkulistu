@@ -28,6 +28,11 @@
     return tail;
   }
 
+  int LinkedList::getCount()
+  {
+    return ncount;
+  }
+
   // Adders
   void LinkedList::addFirst(Node* firstNode)
   {
@@ -121,7 +126,11 @@
   void LinkedList::remove(std::string Name)
   {
     Node* curr = findName(Name);
-    deleteNode(curr);
+    while(curr != nullptr)
+    {
+      deleteNode(curr);
+      curr = findName(Name);
+    }
   }
 
   void LinkedList::empty()
@@ -147,28 +156,72 @@
     return curr;
   }
 
-  void LinkedList::sortName()
+  bool LinkedList::sorted()
   {
-
+    std::cout << "sorted runs" << std::endl;
+    Node* curr = this->getHead();
+    while(curr != nullptr)
+    {
+      if((curr->getStudent()->get_name()).compare(curr->getNext()->getStudent()->get_name()) > 0)
+      {
+        std::cout << "returning false" << std::endl;
+        return false;
+      }
+      curr = curr->getNext();
+      std::cout << "looping" << std::endl;
+    }
+    std::cout << "returning true" << std::endl;
+    return true;
   }
 
   void LinkedList::order()
   {
-    this->sortName();
+    Node* curr = this->getHead();
+    while(sorted() == false)
+    {
+      if(curr->getNext() != nullptr)
+      {
+        if(curr->getStudent()->get_name().compare(curr->getNext()->getStudent()->get_name()))
+        {
+          Node* before = curr->getPrev();
+          Node* after = curr->getNext();
+          if(before != NULL)
+          {
+            before->setNext(after);
+          }
+          curr->setNext(after->getNext());
+          curr->setPrev(after);
+          after->setNext(curr);
+          after->setPrev(before);
+        }
+        else
+        {
+          curr = curr->getNext();
+        }
+      }
+      else
+      {
+        curr = this->getHead();
+      }
+    }
   }
 
   // Misc.
   double LinkedList::sumList(Node* curr)
   {
-      if ( curr != nullptr )
-          return curr->getStudent()->get_score() + sumList(curr->getNext());
+      if (curr != nullptr)
+      {
+        return curr->getStudent()->get_score() + sumList(curr->getNext());
+      }
       else
-          return 0;
+      {
+        return 0;
+      }
   }
 
   double LinkedList::calcAverage()
   {
-    return sumList(head)/ncount;
+    return (sumList(head))/ncount;
   }
 
   int LinkedList::count(std::string searchName)
@@ -189,7 +242,7 @@
   }
 
 // Overloaders
-  LinkedList& LinkedList::operator+=(LinkedList& rhs)
+  void LinkedList::operator+=(LinkedList& rhs)
   {
     this->concatenate(rhs);
   }

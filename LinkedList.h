@@ -19,6 +19,7 @@ public:
   // Getters
   Node* getHead();
   Node* getTail();
+  int getCount();
 
   // Adders
   void addFirst(Node*);
@@ -34,7 +35,7 @@ public:
 
   // Sorters
   Node* findName(std::string Name);
-  void sortName();
+  bool sorted();
   void order();
 
   // Misc.
@@ -43,7 +44,7 @@ public:
   int count(std::string name);
 
   // Overloaders
-  LinkedList& operator+=(LinkedList& rhs);
+  void operator+=(LinkedList& rhs);
   friend std::ostream& operator<<(std::ostream& os, LinkedList& dl);
 
 
