@@ -13,7 +13,7 @@ Node::Node(Student newStudent)
 {
   next = nullptr;
   prev = nullptr;
-  Student* student = (Student*) malloc(sizeof(Student));
+  student = (Student*) malloc(sizeof(Student));
   *student = Student(newStudent.get_name(), newStudent.get_score());
 }
 

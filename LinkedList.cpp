@@ -133,10 +133,11 @@
   Node* LinkedList::findName(std::string Name)
   {
     Node* curr = head;
-    cout << "startname" << curr->getStudent()<< "endname" << endl;
     while(curr->getStudent()->get_name() != Name)
     {
+      cout << curr->getStudent()->get_name() << endl;
       curr = curr->getNext();
+      if (curr == nullptr) return NULL;
     }
     return curr;
   }
