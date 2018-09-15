@@ -1,6 +1,7 @@
 //Course: SENG1120
 //Coded by: Tom Williams
 //Student Number: 3282012
+
 #ifndef NODE_H
 #define NODE_H
 #include "Student.h"

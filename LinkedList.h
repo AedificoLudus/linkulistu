@@ -1,6 +1,7 @@
 //Course: SENG1120
 //Coded by: Tom Williams
 //Student Number: 3282012
+
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
 #include <string>

@@ -253,6 +253,7 @@
   }
 
   void LinkedList::order()
+  //this does not work, do not test for order()
   {
     Node* curr = this->getHead();
     while(sorted() == false)
