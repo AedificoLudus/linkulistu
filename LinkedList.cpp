@@ -135,7 +135,7 @@
     Node* curr = head;
     while(curr->getStudent()->get_name() != Name)
     {
-      cout << curr->getStudent()->get_name() << endl;
+      // cout << curr->getStudent()->get_name() << endl;
       curr = curr->getNext();
       if (curr == nullptr) return NULL;
     }
