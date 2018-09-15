@@ -92,6 +92,7 @@
   // Removers
   void LinkedList::deleteNode(Node *newNode)
   {
+    if (newNode == nullptr) return;
     Node* curr = newNode;
     if(curr == head)
     {
@@ -109,6 +110,10 @@
     {
       tail = curr->getPrev();
       curr->getPrev()->setNext(nullptr);
+    }
+    else {
+      curr->getPrev()->setNext(curr->getNext());
+      curr->getNext()->setPrev(curr->getPrev());
     }
     curr->~Node();
   }
@@ -194,7 +199,7 @@
       Node* curr = dl.getHead();
       while(curr != nullptr)
       {
-        os << curr << " ";
+        os << *curr << " ";
         curr = curr->getNext();
       }
       return os;
