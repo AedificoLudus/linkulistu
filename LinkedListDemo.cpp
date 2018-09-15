@@ -89,7 +89,9 @@ int main()
 	cout << "Ordered lists: " << endl;
 	firstList.order();
 	secondList.order();
-	cout << "List 1: " << firstList  << endl;
+  cout << firstList.getCount() << endl;
+  cout << secondList.getCount() << endl;
+	//cout << "List 1: " << firstList  << endl;
 	cout << "List 2: " << secondList << endl << endl;
 
 	cout << "The program has finished." << endl;
