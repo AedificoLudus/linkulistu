@@ -47,7 +47,6 @@ int main()
 	initialize(firstList, secondList);
 
 	cout << "Start lists:" << endl;
-  cout << firstList.getHead() << endl;
 	cout << "List 1: " << firstList  <<  endl;
 	cout << "List 2: " << secondList <<  endl << endl;
 

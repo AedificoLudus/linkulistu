@@ -93,24 +93,32 @@
   void LinkedList::deleteNode(Node *newNode)
   {
     Node* curr = newNode;
-    if(curr == head)
+    if(curr != nullptr)
     {
-      head = curr->getNext();
-      if(curr == tail)
+      if(curr == head)
       {
-        tail = nullptr;
+        head = curr->getNext();
+        if(curr == tail)
+        {
+          tail = nullptr;
+        }
+        else
+        {
+          curr->getNext()->setPrev(nullptr);
+        }
+      }
+      else if(curr == tail)
+      {
+        tail = curr->getPrev();
+        curr->getPrev()->setNext(nullptr);
       }
       else
       {
-        curr->getNext()->setPrev(nullptr);
+        curr->getPrev()->setNext(curr->getNext());
+        curr->getNext()->setPrev(curr->getPrev());
       }
+      curr->~Node();
     }
-    else if(curr == tail)
-    {
-      tail = curr->getPrev();
-      curr->getPrev()->setNext(nullptr);
-    }
-    curr->~Node();
   }
 
   void LinkedList::remove(std::string Name)
@@ -194,7 +202,7 @@
       Node* curr = dl.getHead();
       while(curr != nullptr)
       {
-        os << curr << " ";
+        os << *curr << " ";
         curr = curr->getNext();
       }
       return os;
