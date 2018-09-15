@@ -196,7 +196,7 @@
       Node* curr = dl.getHead();
       while(curr != nullptr)
       {
-        os << *curr << " ";
+        os << curr << " ";
         curr = curr->getNext();
       }
       return os;
