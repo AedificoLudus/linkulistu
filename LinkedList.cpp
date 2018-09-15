@@ -67,30 +67,14 @@
     ncount += 1;
   }
 
-  LinkedList* CloneList(LinkedList* CopyList, Node* curr, Student data)
-  {
-    if(CopyList == nullptr)
-    {
-
-    }
-    //{
-    //  copy = new LinkedList();
-    //}
-    //if(curr != nullptr)
-    //{
-    //  data.set_name(curr->getStudent()->get_name());
-    //  data.set_score(curr->getStudent()->get_score());
-    //  copy->addToTail(&data);
-    //  curr = curr->getNext();
-    //  Clone(copy, curr, data);
-    //}
-    return CopyList;
-  }
-
   void LinkedList::concatenate(LinkedList second)
   {
-      this->tail->setNext(second.getHead());
-      second.getHead()->setPrev(this->tail);
+    Node* curr = second.getHead();
+    while(curr != nullptr)
+    {
+      this->addToTail(*(curr->getStudent()));
+      curr = curr->getNext();
+    }
   }
 
 
@@ -116,7 +100,8 @@
       tail = curr->getPrev();
       curr->getPrev()->setNext(nullptr);
     }
-    else {
+    else
+    {
       curr->getPrev()->setNext(curr->getNext());
       curr->getNext()->setPrev(curr->getPrev());
     }
@@ -151,26 +136,25 @@
     {
       // cout << curr->getStudent()->get_name() << endl;
       curr = curr->getNext();
-      if (curr == nullptr) return NULL;
+      if(curr == nullptr) {return nullptr;}
     }
     return curr;
   }
 
   bool LinkedList::sorted()
   {
-    std::cout << "sorted runs" << std::endl;
     Node* curr = this->getHead();
     while(curr != nullptr)
     {
-      if((curr->getStudent()->get_name()).compare(curr->getNext()->getStudent()->get_name()) > 0)
+      if(curr->getNext() != nullptr)
       {
-        std::cout << "returning false" << std::endl;
-        return false;
+        if((curr->getStudent()->get_name()).compare(curr->getNext()->getStudent()->get_name()) > 0)
+        {
+          return false;
+        }
       }
       curr = curr->getNext();
-      std::cout << "looping" << std::endl;
     }
-    std::cout << "returning true" << std::endl;
     return true;
   }
 
@@ -183,6 +167,7 @@
       {
         if(curr->getStudent()->get_name().compare(curr->getNext()->getStudent()->get_name()))
         {
+          std::cout << "swapping" <<std::endl;
           Node* before = curr->getPrev();
           Node* after = curr->getNext();
           if(before != NULL)

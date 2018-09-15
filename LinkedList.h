@@ -25,7 +25,6 @@ public:
   void addFirst(Node*);
   void addToHead(Student);
   void addToTail(Student);
-  LinkedList* CloneList(LinkedList* CopyList, Node* curr, Student data);
   void concatenate(LinkedList second);
 
   // Removers
