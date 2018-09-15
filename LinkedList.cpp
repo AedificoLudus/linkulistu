@@ -110,6 +110,11 @@
       tail = curr->getPrev();
       curr->getPrev()->setNext(nullptr);
     }
+    else
+    {
+      curr->getPrev()->setNext(curr->getNext());
+      curr->getNext()->setPrev(curr->getPrev());
+    }
     curr->~Node();
   }
 
@@ -137,6 +142,7 @@
     while(curr->getStudent()->get_name() != Name)
     {
       curr = curr->getNext();
+      if(curr == nullptr) {return nullptr;}
     }
     return curr;
   }

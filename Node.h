@@ -29,7 +29,7 @@ public:
 friend std::ostream& operator<<(std::ostream& os, Node& dn);
 
 private:
-Student *student;
+Student *nStudent;
 Node *next;
 Node *prev;
 };

@@ -6,21 +6,20 @@ Node::Node()
 {
   next = nullptr;
   prev = nullptr;
-  student = nullptr;
+  nStudent = nullptr;
 }
 
 Node::Node(Student newStudent)
 {
   next = nullptr;
   prev = nullptr;
-  Student* student = (Student*) malloc(sizeof(Student));
-  *student = Student(newStudent.get_name(), newStudent.get_score());
+  nStudent = &newStudent;
 }
 
 
 // Empty Destructor
 Node::~Node(){
-  // free(this);
+   free(this);
 }
 
 
@@ -37,7 +36,7 @@ Node* Node::getPrev()
 
 Student* Node::getStudent()
 {
-  return student;
+  return nStudent;
 }
 
 
@@ -54,7 +53,7 @@ void Node::setPrev(Node *newPrev)
 
 void Node::setStudent(Student *newStu)
 {
-  student = newStu;
+  nStudent = newStu;
 }
 
 std::ostream& operator<<(std::ostream& os, Node& dn)
